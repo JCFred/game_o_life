@@ -1,0 +1,31 @@
+body{
+  display: flex;
+}
+
+#leftBar, #rightBar{
+  border: 1px solid black;
+  height: 100vh;
+  width: 10%;
+  display:flex;
+  justify-content:center:
+  flex-wrap:wrap;
+}
+#mainBody{
+  border: 1px solid black;
+  width: 80%;
+  height: 100vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+#gridBox{
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box{
+  box-sizing: border-box;
+  border: 1px solid black;
+
+}
