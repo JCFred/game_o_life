@@ -1,16 +1,19 @@
-body{
+main{
   display: flex;
 }
-
-#leftBar, #rightBar{
-  border: 1px solid black;
-  height: 100vh;
-  width: 10%;
+header{
+  height:40px;
+  width:100%;
+  border:1px solid black;
   display:flex;
-  justify-content:center:
-  flex-wrap:wrap;
 }
-#mainBody{
+
+#gridBox{
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+.mainBar{
   border: 1px solid black;
   width: 80%;
   height: 100vh;
@@ -18,12 +21,23 @@ body{
   justify-content: center;
   align-items: center;
 }
-#gridBox{
+.sideBar{
   border: 1px solid black;
-  display: flex;
-  flex-wrap: wrap;
+  height: 100vh;
+  width: 20%;
+  /*display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;*/
 }
-
+.sideCrate{
+  width:100%;
+  border: 1px solid black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
 .box{
   box-sizing: border-box;
   border: 1px solid black;

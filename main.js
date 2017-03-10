@@ -44,14 +44,16 @@ function Create2DArray(rows) {
 $('#pauseButton').click(function(){
   if(paused === true){
     paused = false;
+    $('#stepButton').prop('disabled', true);
     document.querySelector('#pauseText').textContent = "living"
   }else {
     paused = true;
+    $('#stepButton').prop('disabled', false);
     document.querySelector('#pauseText').textContent = "PAUSED"
   }
 })
 
-//pencil a square with selected color
+//pencil a square when paused
 container.addEventListener('click', function(event){
   //console.log(event.target)
   if(event.target.classList.contains('box') && paused == true){
@@ -61,6 +63,8 @@ container.addEventListener('click', function(event){
     let boxX = Math.floor((boxPos.left - containerPos.left)/boxSize);
     let boxY = Math.floor((boxPos.top - containerPos.top)/boxSize);
     console.log(boxX + " , " + boxY);
+    console.log(boxPos);
+    console.log(containerPos);
     if(gridCycle === "a"){
       gridArrayA[boxX][boxY] = 1;
     } else {
@@ -68,18 +72,31 @@ container.addEventListener('click', function(event){
     }
   }
 })
+setInterval(runStep, 200);
 
 function runStep(){
-  if(gridCycle === "a"){
-    gridCheck(gridArrayA, gridArrayB);
-    makeChanges(gridArrayB, gridArrayA);
-  } else if(gridCycle === "b"){
-    gridCheck(gridArrayB, gridArrayA);
-    makeChanges(gridArrayA, gridArrayB);
+  if(paused === false){
+    if(gridCycle === "a"){
+      gridCheck(gridArrayA, gridArrayB);
+      makeChanges(gridArrayB, gridArrayA);
+    } else if(gridCycle === "b"){
+      gridCheck(gridArrayB, gridArrayA);
+      makeChanges(gridArrayA, gridArrayB);
+    }
   }
 }
+
+//"run one step" button while paused
 $('#stepButton').click(function(){
-  runStep();
+  if(paused){
+    if(gridCycle === "a"){
+      gridCheck(gridArrayA, gridArrayB);
+      makeChanges(gridArrayB, gridArrayA);
+    } else if(gridCycle === "b"){
+      gridCheck(gridArrayB, gridArrayA);
+      makeChanges(gridArrayA, gridArrayB);
+    }
+  }
 })
 
 
@@ -160,10 +177,15 @@ function makeChanges(changed, toEmpty){
   for(let y = 0; y < gridSize; y++){
     for(let x = 0; x < gridSize; x++){
       toEmpty[x][y] = 0;
-      let gridPos = document.elementFromPoint(x*boxSize + containerPos.left, y*boxSize + containerPos.top)
+      let gridPos = document.elementFromPoint(x*boxSize + containerPos.left +1, y*boxSize + containerPos.top +1)
+      // console.log(x +" , "+ y)
+      // console.log(containerPos);
+      // console.log(x*boxSize + containerPos.left);
+      // console.log(y*boxSize + containerPos.top);
+      // console.log(gridPos);
       if(changed[x][y] == 1){
         gridPos.style.backgroundColor = "red"
-      } else {
+      } else if(changed[x][y] == 0){
         gridPos.style.backgroundColor = "white"
       }
     }
