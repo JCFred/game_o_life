@@ -1,9 +1,10 @@
 var container = document.getElementById('gridBox');
-var gridSize = 30;
+var gridSize = 50;
 var boxSize = 10;
 var playerX = 0;
 var playerY = 0;
 var paused = true;
+var gliderSpawn = false;
 var gridArrayA = [];
 var gridArrayB = [];
 var gridCycle = "a"
@@ -45,13 +46,14 @@ $('#pauseButton').click(function(){
   if(paused === true){
     paused = false;
     $('#stepButton').prop('disabled', true);
-    document.querySelector('#pauseText').textContent = "living"
+    document.querySelector('#pauseText').textContent = "Active"
   }else {
     paused = true;
     $('#stepButton').prop('disabled', false);
-    document.querySelector('#pauseText').textContent = "PAUSED"
+    document.querySelector('#pauseText').textContent = "PAUSED you can now draw"
   }
 })
+
 
 //pencil a square when paused
 container.addEventListener('click', function(event){
@@ -62,9 +64,9 @@ container.addEventListener('click', function(event){
     let containerPos = container.getBoundingClientRect();
     let boxX = Math.floor((boxPos.left - containerPos.left)/boxSize);
     let boxY = Math.floor((boxPos.top - containerPos.top)/boxSize);
-    console.log(boxX + " , " + boxY);
-    console.log(boxPos);
-    console.log(containerPos);
+    // console.log(boxX + " , " + boxY);
+    // console.log(boxPos);
+    // console.log(containerPos);
     if(gridCycle === "a"){
       gridArrayA[boxX][boxY] = 1;
     } else {
@@ -178,11 +180,6 @@ function makeChanges(changed, toEmpty){
     for(let x = 0; x < gridSize; x++){
       toEmpty[x][y] = 0;
       let gridPos = document.elementFromPoint(x*boxSize + containerPos.left +1, y*boxSize + containerPos.top +1)
-      // console.log(x +" , "+ y)
-      // console.log(containerPos);
-      // console.log(x*boxSize + containerPos.left);
-      // console.log(y*boxSize + containerPos.top);
-      // console.log(gridPos);
       if(changed[x][y] == 1){
         gridPos.style.backgroundColor = "red"
       } else if(changed[x][y] == 0){
